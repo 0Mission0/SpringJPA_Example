@@ -1,7 +1,5 @@
 package idv.mission.example.SpringJPA_Example;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 public class Test {
@@ -9,8 +7,13 @@ public class Test {
         FileSystemXmlApplicationContext context = new FileSystemXmlApplicationContext("src/applicationContext.xml");
         CustomerService service = context.getBean(CustomerService.class);
         Customer customer = service.findOne(1);
-        Logger logger = LogManager.getLogger(Test.class.getName());
-        logger.info(customer);
+        System.out.println(customer);
+        try {
+            Thread.sleep(30 * 1000);
+        }
+        catch (Exception ex) {
+            System.out.println(ex.toString());
+        }
         context.close();
     }
 }

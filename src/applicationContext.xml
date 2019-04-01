@@ -58,4 +58,14 @@
         <property name="entityManagerFactory" ref="entityManagerFactory" />
     </bean>
     
+    <!-- Add this part, so you will see db content in H2 Console -->
+    <!-- https://stackoverflow.com/questions/7309359/view-content-of-h2-or-hsqldb-in-memory-database -->
+    <bean id="h2Server" class="org.h2.tools.Server" factory-method="createTcpServer" init-method="start" destroy-method="stop" depends-on="h2WebServer">
+        <constructor-arg value="-tcp,-tcpAllowOthers,-tcpPort,9092" />
+    </bean>
+
+    <bean id="h2WebServer" class="org.h2.tools.Server" factory-method="createWebServer" init-method="start" destroy-method="stop">
+        <constructor-arg value="-web,-webAllowOthers,-webPort,8082" />
+    </bean>
+    
 </beans>
